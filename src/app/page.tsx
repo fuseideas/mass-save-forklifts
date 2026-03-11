@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { PlusIcon, Trash2Icon } from "lucide-react";
+import MegaMenu from "./components/MegaMenu";
 
 type Sponsor = "cape-light" | "eversource" | "national-grid" | "unitil" | "";
 
@@ -394,13 +395,16 @@ export default function Home() {
             animate={{ height: scrolled ? 44 : 64 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           />
-          <motion.span
-            className="font-bold tracking-wide"
-            animate={{ fontSize: scrolled ? "1.25rem" : "2.25rem" }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-          >
-            {currentYear}
-          </motion.span>
+          <div className="flex items-center gap-4">
+            <MegaMenu scrolled={scrolled} />
+            <motion.span
+              className="font-bold tracking-wide"
+              animate={{ fontSize: scrolled ? "1.25rem" : "2.25rem" }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              {currentYear}
+            </motion.span>
+          </div>
         </div>
       </motion.div>
 
