@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   motion,
   useScroll,
@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { PlusIcon, Trash2Icon } from "lucide-react";
+import { PlusIcon, Trash2Icon, DownloadIcon } from "lucide-react";
 import MegaMenu from "./components/MegaMenu";
 
 type Sponsor = "cape-light" | "eversource" | "national-grid" | "unitil" | "";
@@ -79,6 +79,38 @@ const emptyCharger = (): ChargerRow => ({
 });
 
 export default function Home() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [installPrompt, setInstallPrompt] = useState<any>(null);
+  const [showInstallTip, setShowInstallTip] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
+
+  useEffect(() => {
+    // Check if already installed as PWA
+    setIsStandalone(
+      window.matchMedia("(display-mode: standalone)").matches ||
+      (window.navigator as any).standalone === true
+    );
+
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
+  const handleInstall = async () => {
+    if (installPrompt) {
+      installPrompt.prompt();
+      const result = await installPrompt.userChoice;
+      if (result.outcome === "accepted") {
+        setInstallPrompt(null);
+      }
+    } else {
+      setShowInstallTip(true);
+    }
+  };
+
   const [sponsor, setSponsor] = useState<Sponsor>("");
   const [accountNumber, setAccountNumber] = useState("");
 
@@ -397,6 +429,15 @@ export default function Home() {
           />
           <div className="flex items-center gap-4">
             <MegaMenu scrolled={scrolled} />
+            {!isStandalone && (
+              <button
+                onClick={handleInstall}
+                className="hidden md:flex items-center gap-1.5 text-white/90 hover:text-white transition-colors font-medium text-sm px-3 py-1.5 rounded-md hover:bg-white/10"
+              >
+                <DownloadIcon className="w-4 h-4" />
+                Install App
+              </button>
+            )}
             <motion.span
               className="font-bold tracking-wide"
               animate={{ fontSize: scrolled ? "1.25rem" : "2.25rem" }}
@@ -407,6 +448,40 @@ export default function Home() {
           </div>
         </div>
       </motion.div>
+
+      {/* Install tip modal for Safari/Firefox */}
+      {showInstallTip && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40" onClick={() => setShowInstallTip(false)}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-xl shadow-2xl max-w-sm mx-4 p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-lg font-bold text-mass-save-headline mb-3">Install Mass Save App</h3>
+            <div className="space-y-3 text-sm text-gray-600">
+              <div>
+                <p className="font-semibold text-gray-800 mb-1">Safari (iPhone/iPad)</p>
+                <p>Tap the <span className="inline-block px-1.5 py-0.5 bg-gray-100 rounded text-xs font-mono">Share</span> button, then select <strong>&quot;Add to Home Screen&quot;</strong></p>
+              </div>
+              <div>
+                <p className="font-semibold text-gray-800 mb-1">Safari (Mac)</p>
+                <p>Click <strong>File → Add to Dock</strong> in the menu bar</p>
+              </div>
+              <div>
+                <p className="font-semibold text-gray-800 mb-1">Chrome / Edge</p>
+                <p>Click the install icon in the address bar, or go to <strong>Menu → Install App</strong></p>
+              </div>
+            </div>
+            <button
+              onClick={() => setShowInstallTip(false)}
+              className="mt-5 w-full bg-mass-save-green text-white font-semibold py-2.5 rounded-lg hover:bg-mass-save-green-dark transition-colors"
+            >
+              Got it
+            </button>
+          </motion.div>
+        </div>
+      )}
 
       {/* Hero header with parallax */}
       <div ref={heroRef} className="relative w-full h-80 md:h-[28rem] overflow-hidden">
