@@ -159,13 +159,19 @@ export default function MegaMenu({ scrolled }: { scrolled: boolean }) {
               transition={{ duration: 0.2, ease: "easeOut" }}
               className="absolute right-0 top-full mt-2 w-[640px] bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden"
             >
-              <div className="p-6 grid grid-cols-3 gap-6">
-                {menuData.map((category) => (
-                  <div key={category.title}>
-                    <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">
+              <div className="p-6 flex flex-col gap-3">
+                {/* Header row */}
+                <div className="flex gap-6">
+                  {menuData.map((category) => (
+                    <h3 key={category.title} className="flex-1 text-[10px] font-bold uppercase tracking-widest text-gray-400">
                       {category.title}
                     </h3>
-                    <div className="space-y-1">
+                  ))}
+                </div>
+                {/* Items row */}
+                <div className="flex gap-6">
+                  {menuData.map((category) => (
+                    <div key={category.title} className="flex-1 space-y-1">
                       {category.items.map((item) => (
                         <a
                           key={item.label}
@@ -203,21 +209,13 @@ export default function MegaMenu({ scrolled }: { scrolled: boolean }) {
                         </a>
                       ))}
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-              <div className="bg-gray-50 border-t border-gray-100 px-6 py-3 flex items-center justify-between">
+              <div className="bg-gray-50 border-t border-gray-100 px-6 py-3">
                 <span className="text-xs text-gray-400">
                   Mass Save® Rebate Applications
                 </span>
-                <a
-                  href="https://www.masssave.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-medium text-mass-save-green hover:text-mass-save-green-dark no-underline transition-colors"
-                >
-                  Visit MassSave.com →
-                </a>
               </div>
             </motion.div>
           )}
@@ -313,14 +311,9 @@ export default function MegaMenu({ scrolled }: { scrolled: boolean }) {
               </div>
 
               <div className="p-4 border-t border-gray-100 mt-4">
-                <a
-                  href="https://www.masssave.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-mass-save-green no-underline"
-                >
-                  Visit MassSave.com →
-                </a>
+                <span className="text-xs text-gray-400">
+                  Mass Save® Rebate Applications
+                </span>
               </div>
             </motion.div>
           </>
