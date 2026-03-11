@@ -16,18 +16,19 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  /* Primary = Mass Save green */
+  --primary: oklch(0.462 0.153 155.4);
+  --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent: oklch(0.95 0.02 155);
+  --accent-foreground: oklch(0.25 0.08 155);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --input: oklch(0.88 0 0);
+  --ring: oklch(0.462 0.153 155.4);
   --chart-1: oklch(0.809 0.105 251.813);
   --chart-2: oklch(0.623 0.214 259.815);
   --chart-3: oklch(0.546 0.245 262.881);
@@ -52,7 +53,7 @@
   --color-mass-save-green-light: var(--mass-save-green-light);
   --color-mass-save-blue: var(--mass-save-blue);
   --color-mass-save-headline: var(--mass-save-headline);
-  --font-sans: var(--font-sans);
+  --font-sans: proxima-nova, Helvetica, Arial, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -129,47 +130,6 @@ a:hover {
   border-top: 3px solid var(--mass-save-green);
 }
 
-/* Form inputs */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="date"],
-input[type="number"],
-select {
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
-  width: 100%;
-  background: #fff;
-  color: #000;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border-color: var(--mass-save-green);
-  box-shadow: 0 0 0 3px rgba(0, 132, 61, 0.12);
-}
-
-input::placeholder {
-  color: #999;
-}
-
-input[type="radio"] {
-  accent-color: var(--mass-save-green);
-}
-
-input[type="checkbox"] {
-  accent-color: var(--mass-save-green);
-}
-
-/* Labels */
-label {
-  color: #000;
-}
-
 /* Buttons */
 .btn-primary {
   background-color: var(--mass-save-green);
@@ -191,145 +151,6 @@ label {
 
 .btn-primary:active {
   transform: translateY(0);
-}
-
-/* Date picker overrides */
-.date-picker-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.date-picker-wrapper .react-datepicker-wrapper {
-  width: 100%;
-}
-
-.date-picker-wrapper .date-picker-input {
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
-  width: 100%;
-  background: #fff;
-  color: #000;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  cursor: pointer;
-}
-
-.date-picker-wrapper .date-picker-input:focus {
-  outline: none;
-  border-color: var(--mass-save-green);
-  box-shadow: 0 0 0 3px rgba(0, 132, 61, 0.12);
-}
-
-.date-picker-wrapper .date-picker-input::placeholder {
-  color: #999;
-}
-
-.react-datepicker {
-  font-family: proxima-nova, Helvetica, Arial, sans-serif !important;
-  border: 1px solid #e5e5e5 !important;
-  border-radius: 0.5rem !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
-  overflow: hidden;
-}
-
-.react-datepicker__header {
-  background: var(--mass-save-green) !important;
-  border-bottom: none !important;
-  padding: 12px 0 8px !important;
-  border-radius: 0 !important;
-}
-
-.react-datepicker__current-month {
-  color: #fff !important;
-  font-weight: 700 !important;
-  font-size: 0.95rem !important;
-  margin-bottom: 4px !important;
-}
-
-.react-datepicker__day-name {
-  color: rgba(255, 255, 255, 0.8) !important;
-  font-weight: 600 !important;
-  font-size: 0.75rem !important;
-}
-
-.react-datepicker__navigation-icon::before {
-  border-color: #fff !important;
-}
-
-.react-datepicker__navigation:hover *::before {
-  border-color: rgba(255, 255, 255, 0.7) !important;
-}
-
-.react-datepicker__day {
-  border-radius: 0.375rem !important;
-  font-size: 0.85rem !important;
-  transition: background-color 0.15s ease, color 0.15s ease !important;
-}
-
-.react-datepicker__day:hover {
-  background-color: var(--mass-save-green-light) !important;
-  color: var(--mass-save-green) !important;
-}
-
-.react-datepicker__day--selected,
-.react-datepicker__day--keyboard-selected {
-  background-color: var(--mass-save-green) !important;
-  color: #fff !important;
-  font-weight: 700 !important;
-}
-
-.react-datepicker__day--selected:hover {
-  background-color: var(--mass-save-green-dark) !important;
-  color: #fff !important;
-}
-
-.react-datepicker__day--today {
-  font-weight: 700 !important;
-  box-shadow: inset 0 -2px 0 var(--mass-save-green) !important;
-}
-
-.react-datepicker__close-icon::after {
-  background-color: var(--mass-save-green) !important;
-  font-size: 14px !important;
-}
-
-.react-datepicker__close-icon:hover::after {
-  background-color: var(--mass-save-green-dark) !important;
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {
